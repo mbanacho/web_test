@@ -1,20 +1,26 @@
 package pl.mbanacho.cars.database.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Car implements WithId {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", updatable = false, nullable = false)
     private Long id;
-    private Brand brand;
-    private Model model;
-    private Color color;
+
+    @ManyToOne
+    private CarBrand carBrand;
+
+    @ManyToOne
+    private CarModel carModel;
+
+    @ManyToOne
+    private CarColor carColor;
+
     private String version;
+
     private Integer productionYear;
 
     @Override
@@ -26,28 +32,28 @@ public class Car implements WithId {
         this.id = id;
     }
 
-    public Brand getBrand() {
-        return brand;
+    public CarBrand getCarBrand() {
+        return carBrand;
     }
 
-    public void setBrand(Brand brand) {
-        this.brand = brand;
+    public void setCarBrand(CarBrand carBrand) {
+        this.carBrand = carBrand;
     }
 
-    public Model getModel() {
-        return model;
+    public CarModel getCarModel() {
+        return carModel;
     }
 
-    public void setModel(Model model) {
-        this.model = model;
+    public void setCarModel(CarModel carModel) {
+        this.carModel = carModel;
     }
 
-    public Color getColor() {
-        return color;
+    public CarColor getCarColor() {
+        return carColor;
     }
 
-    public void setColor(Color color) {
-        this.color = color;
+    public void setCarColor(CarColor carColor) {
+        this.carColor = carColor;
     }
 
     public String getVersion() {

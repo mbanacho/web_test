@@ -20,13 +20,21 @@ public class User implements WithId {
     }
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", updatable = false, nullable = false)
     private Long id;
+
     private String firstName;
+
     private String lastName;
+
+    @Column(unique=true)
     private String email;
+
     private String password;
+
     private boolean enabled;
+
     private boolean tokenExpired;
 
     @ManyToMany

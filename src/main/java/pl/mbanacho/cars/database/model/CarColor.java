@@ -1,18 +1,22 @@
 package pl.mbanacho.cars.database.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import pl.mbanacho.cars.database.model.defined.type.ColorVersion;
+
+import javax.persistence.*;
 
 @Entity
-public class Color implements WithId {
+public class CarColor implements WithId {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", updatable = false, nullable = false)
     private Long id;
+
+    @ManyToOne
     private Dictionary name;
-    private String version;
+
+    @Enumerated(EnumType.STRING)
+    private ColorVersion version;
 
     @Override
     public Long getId() {
@@ -31,11 +35,11 @@ public class Color implements WithId {
         this.name = name;
     }
 
-    public String getVersion() {
+    public ColorVersion getVersion() {
         return version;
     }
 
-    public void setVersion(String version) {
+    public void setVersion(ColorVersion version) {
         this.version = version;
     }
 }
