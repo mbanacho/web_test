@@ -1,4 +1,4 @@
-package com.example.demo.service;
+package pl.mbanacho.cars.service;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -15,7 +15,7 @@ public class SimpleService {
 
     public String aasfdg(Integer a){
         if(a==100){
-            return "a";
+            return "model";
         }
         return "b";
     }

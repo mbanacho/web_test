@@ -1,4 +1,4 @@
-package com.example.demo;
+package pl.mbanacho.cars;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

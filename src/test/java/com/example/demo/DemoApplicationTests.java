@@ -1,8 +1,6 @@
 package com.example.demo;
 
-import com.example.demo.model.Role;
-import com.example.demo.model.User;
-import com.example.demo.service.SimpleService;
+import pl.mbanacho.cars.service.SimpleService;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -24,16 +22,6 @@ import static org.mockito.internal.verification.VerificationModeFactory.times;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class DemoApplicationTests {
-
-    @Before
-    public void setup() {
-        User user1 = new User() {
-            {
-                setName("John");
-            }
-        };
-        //Mockito.when().thenReturn(user1);
-    }
 
     @Mock
     SimpleService serviceMock;

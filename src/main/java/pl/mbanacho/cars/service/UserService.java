@@ -1,13 +1,13 @@
-package com.example.demo.service;
+package pl.mbanacho.cars.service;
 
-import com.example.demo.model.User;
 import org.springframework.stereotype.Service;
+import pl.mbanacho.cars.database.model.User;
 
 @Service
 public class UserService {
 
     public User getUser() {
-        User user = new User("A","b",1);
+        User user = new User();
         return user;
     }
 }
