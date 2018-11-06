@@ -4,9 +4,9 @@ import org.junit.Assert;
 import org.junit.Test;
 import pl.mbanacho.cars.database.model.User;
 
-import java.sql.Timestamp;
 import java.util.*;
 import java.util.function.*;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -76,23 +76,23 @@ public class LambdaTest {
 
         User user = new User(1L, "imie", "nazwisko1", "email@email.com", "pass", Boolean.TRUE, Boolean.FALSE);
         users.add(user);
-        User user1 = new User(1L, "imie1", "nazwisko5", "email1@email.com", "pass1", Boolean.TRUE, Boolean.FALSE);
+        User user1 = new User(2L, "imie1", "nazwisko5", "email1@email.com", "pass1", Boolean.TRUE, Boolean.FALSE);
         users.add(user1);
-        User user2 = new User(1L, "imie2", "nazwisko3", "email2@email.com", "pass2", Boolean.TRUE, Boolean.FALSE);
+        User user2 = new User(3L, "imie2", "nazwisko3", "email2@email.com", "pass2", Boolean.TRUE, Boolean.FALSE);
         users.add(user2);
-        User user3 = new User(1L, "imie3", "nazwisko1", "email3@email.com", "pass3", Boolean.TRUE, Boolean.FALSE);
+        User user3 = new User(4L, "imie3", "nazwisko1", "email3@email.com", "pass3", Boolean.TRUE, Boolean.FALSE);
         users.add(user3);
-        User user4 = new User(1L, "imie1", "nazwisko5", "email4@email.com", "pass4", Boolean.TRUE, Boolean.FALSE);
+        User user4 = new User(5L, "imie1", "nazwisko5", "email4@email.com", "pass4", Boolean.TRUE, Boolean.FALSE);
         users.add(user4);
-        User user5 = new User(1L, "imie2", "nazwisko3", "email5@email.com", "pass5", Boolean.TRUE, Boolean.FALSE);
+        User user5 = new User(6L, "imie2", "nazwisko3", "email5@email.com", "pass5", Boolean.TRUE, Boolean.FALSE);
         users.add(user5);
-        User user6 = new User(1L, "imie3", "nazwisko4", "email6@email.com", "pass6", Boolean.TRUE, Boolean.FALSE);
+        User user6 = new User(7L, "imie3", "nazwisko4", "email6@email.com", "pass6", Boolean.TRUE, Boolean.FALSE);
         users.add(user6);
-        User user7 = new User(1L, "imie4", "nazwisko5", "email7@email.com", "pass7", Boolean.TRUE, Boolean.FALSE);
+        User user7 = new User(8L, "imie4", "nazwisko5", "email7@email.com", "pass7", Boolean.TRUE, Boolean.FALSE);
         users.add(user7);
-        User user8 = new User(1L, "imie5", "nazwisko6", "email8@email.com", "pass8", Boolean.TRUE, Boolean.FALSE);
+        User user8 = new User(9L, "imie5", "nazwisko6", "email8@email.com", "pass8", Boolean.TRUE, Boolean.FALSE);
         users.add(user8);
-        User user9 = new User(1L, "imie6", "nazwisko6", "email9@email.com", "pass9", Boolean.TRUE, Boolean.FALSE);
+        User user9 = new User(10L, "imie6", "nazwisko6", "email9@email.com", "pass9", Boolean.TRUE, Boolean.FALSE);
         users.add(user9);
 
         return users;
@@ -106,8 +106,42 @@ public class LambdaTest {
     }
 
     @Test
-    public void test10() {
+    public void testPredicate() {
         Predicate<User> namePredicate = user -> user.getFirstName().contains("2");
         getUsers().stream().filter(namePredicate).collect(Collectors.toList()).forEach(user -> System.out.println(user.getFirstName()));
+    }
+
+    @Test
+    public void test11() {
+        Predicate<User> namePredicate = user -> user.getFirstName().contains("2");
+        Map<User, Long> result =
+                getUsers().stream().collect(
+                        Collectors.groupingBy(
+                                Function.identity(),Collectors.counting()
+                        )
+                );
+        System.out.println(result);
+    }
+
+    @Test
+    public void test12() {
+        Predicate<User> namePredicate = user -> user.getFirstName().contains("2");
+        Map<String, Long> result =
+                getUsers().stream().collect(Collectors.groupingBy(
+                                User::getFirstName,Collectors.counting()
+                        )
+                );
+        System.out.println(result);
+    }
+
+    @Test
+    public void summingIdValuesForEachKindOfName() {
+        Predicate<User> namePredicate = user -> user.getFirstName().contains("2");
+        Map<String, Long> result =
+                getUsers().stream().collect(Collectors.groupingBy(
+                                User::getFirstName,Collectors.summingLong(User::getId)
+                        )
+                );
+        System.out.println(result);
     }
 }
