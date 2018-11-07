@@ -5,9 +5,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.mbanacho.cars.database.model.Car;
+import pl.mbanacho.cars.model.json.car.NewCar;
+import pl.mbanacho.cars.model.json.car.UpdateCar;
 import pl.mbanacho.cars.service.CarService;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(value="/car")
@@ -29,17 +32,21 @@ public class CarController {
     @GetMapping("/{carId}")
     public ResponseEntity<Car> getCarWithId(@PathVariable("carId")Long carId){
         try{
-            Car car = service.getCarById(carId);
-            return ResponseEntity.ok(car);
+            Optional<Car> car = service.getCarById(carId);
+            if(car.isPresent()){
+                return ResponseEntity.ok(car.get());
+            }else{
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+            }
         }catch(Exception e){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
 
     @PostMapping
-    public ResponseEntity<Long> addCar(@RequestBody Car car){
+    public ResponseEntity<Long> addCar(@RequestBody NewCar newCar){
         try{
-            Long carId = service.addNewCar(car);
+            Long carId = service.addNewCar(newCar);
             return ResponseEntity.ok(carId);
         }catch(Exception e){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
@@ -47,9 +54,9 @@ public class CarController {
     }
 
     @PutMapping
-    public ResponseEntity<Car> updateCarById(@RequestBody Car car){
+    public ResponseEntity<Car> updateCarById(@RequestBody UpdateCar updateCar){
         try{
-            Car updatedCar = service.updateCar(car);
+            Car updatedCar = service.updateCar(updateCar);
             return ResponseEntity.ok(updatedCar);
         }catch(Exception e){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();

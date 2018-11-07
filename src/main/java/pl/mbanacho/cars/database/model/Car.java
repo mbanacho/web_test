@@ -5,6 +5,17 @@ import javax.persistence.*;
 @Entity
 public class Car implements WithId {
 
+    public Car() {
+    }
+
+    public Car(CarBrand carBrand, CarModel carModel, CarColor carColor, String version, Integer productionYear) {
+        this.carBrand = carBrand;
+        this.carModel = carModel;
+        this.carColor = carColor;
+        this.version = version;
+        this.productionYear = productionYear;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", updatable = false, nullable = false)
