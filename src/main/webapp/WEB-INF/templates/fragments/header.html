@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link href="/resources/bootstrap.min.css" th:href="@{/resources/bootstrap.min.css}" rel="stylesheet" />
+</head>
+<body>
+<div th:fragment="header">
+    <div class=""></div>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light" style="background-color: #ff005d;">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <a class="navbar-brand" href="/">Tutorial</a>
+
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Home<span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/employee">Employee</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link disabled" href="/product">Product</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link disabled" href="/customer">Customer</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link disabled" href="/order">Order</a>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="nav-link" data-toggle="dropdown">Statistics<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li class="nav-item"><a class="nav-link disabled" href="/product/statistics">Product</a></li>
+                        <li class="nav-item"><a class="nav-link disabled" href="/customer/statistics">Customer</a></li>
+                        <li class="nav-item"><a class="nav-link disabled" href="/order/statistics">Order</a></li>
+
+                        <li class="divider"></li>
+                        <li class="dropdown-header">Earnings</li>
+                        <li class="nav-item"><a class="nav-link disabled" href="/payments/statistics">Payments</a></li>
+                        <li class="nav-item"><a class="nav-link disabled" href="/order/statistics">Order</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link disabled" href="#">Haha :P</a>
+                </li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form>
+        </div>
+    </nav>
+
+<!--
+    &lt;!&ndash; Fixed navbar &ndash;&gt;
+    <div class="navbar navbar-dark bg-dark" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar">A</span>
+                    <span class="icon-bar">B</span>
+                    <span class="icon-bar">C</span>
+                </button>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Action</a></li>
+                            <li><a href="#">Another action</a></li>
+                            <li><a href="#">Something else here</a></li>
+                            <li class="divider"></li>
+                            <li class="dropdown-header">Nav header</li>
+                            <li><a href="#">Separated link</a></li>
+                            <li><a href="#">One more separated link</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>&lt;!&ndash;/.nav-collapse &ndash;&gt;
+        </div>
+    </div>
+-->
+
+</div>
+</body>
+</html>
