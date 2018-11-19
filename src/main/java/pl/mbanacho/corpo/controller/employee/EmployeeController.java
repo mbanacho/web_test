@@ -11,6 +11,7 @@ import pl.mbanacho.corpo.database.model.Employee;
 import pl.mbanacho.corpo.model.input.employee.NewEmployee;
 import pl.mbanacho.corpo.model.input.employee.UpdateEmployee;
 import pl.mbanacho.corpo.service.employee.EmployeeService;
+import pl.mbanacho.corpo.service.queue.RabbitMqProducer;
 
 import java.util.List;
 import java.util.Optional;
@@ -21,6 +22,9 @@ public class EmployeeController {
 
     @Autowired
     EmployeeService service;
+
+    @Autowired
+    RabbitMqProducer rabbitMqProducer;
 
     @GetMapping
     public ModelAndView getEmployees(Model model){

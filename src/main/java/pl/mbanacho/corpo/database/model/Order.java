@@ -28,7 +28,7 @@ public class Order implements Serializable {
     @Column(columnDefinition = "varchar(15)", nullable = false)
     private String status;
 
-    @Column(columnDefinition = "text", nullable = false)
+    @Column(columnDefinition = "text")
     private String comments;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)

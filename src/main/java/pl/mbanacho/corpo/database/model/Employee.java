@@ -7,13 +7,13 @@ import javax.persistence.*;
 public class Employee {
 
     @Id
-    @Column(updatable = false, nullable = false)
+    @Column(name="employeeNumber", updatable = false, nullable = false)
     private Integer employeeNumber;
 
-    @Column(columnDefinition = "varchar(50)", nullable = false)
+    @Column(name="lastName", columnDefinition = "varchar(50)", nullable = false)
     private String lastName;
 
-    @Column(columnDefinition = "varchar(50)", nullable = false)
+    @Column(name="firstName", columnDefinition = "varchar(50)", nullable = false)
     private String firstName;
 
     @Column(columnDefinition = "varchar(10)", nullable = false)
@@ -27,13 +27,13 @@ public class Employee {
     private Office officeCode;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "employeeNumber", insertable=false, updatable=false)
+    @JoinColumn(name = "reportsTo", insertable=false, updatable=false)
     private Employee reportsTo;
 
     @Column(columnDefinition = "varchar(50)", nullable = false)
     private String jobTitle;
 
-    public Integer getOrderNumber() {
+    public Integer getEmployeeNumber() {
         return employeeNumber;
     }
 
@@ -95,5 +95,10 @@ public class Employee {
 
     public void setJobTitle(String jobTitle) {
         this.jobTitle = jobTitle;
+    }
+
+    @Override
+    public String toString() {
+        return "Employee{" + "employeeNumber=" + employeeNumber + ", lastName='" + lastName + '\'' + ", firstName='" + firstName + '\'' + ", extension='" + extension + '\'' + ", email='" + email + '\'' + ", officeCode=" + officeCode + ", reportsTo=" + reportsTo + ", jobTitle='" + jobTitle + '\'' + '}';
     }
 }

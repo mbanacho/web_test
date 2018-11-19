@@ -1,0 +1,213 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet id="create_tables" author="mbanacho">
+        <createTable tableName="customers">
+            <column name="customerNumber" type="int(11)">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="customerName" type="varchar(50)">
+                <constraints nullable="false" />
+            </column>
+            <column name="contactLastName" type="varchar(50)">
+                <constraints nullable="false" />
+            </column>
+            <column name="contactFirstName" type="varchar(50)">
+                <constraints nullable="false" />
+            </column>
+            <column name="phone" type="varchar(50)">
+                <constraints nullable="false" />
+            </column>
+            <column name="addressLine1" type="varchar(50)">
+                <constraints nullable="false" />
+            </column>
+            <column name="addressLine2" type="varchar(50)">
+                <constraints nullable="true" />
+            </column>
+            <column name="city" type="varchar(50)">
+                <constraints nullable="false" />
+            </column>
+            <column name="state" type="varchar(50)">
+                <constraints nullable="true" />
+            </column>
+            <column name="postalCode" type="varchar(15)">
+                <constraints nullable="true" />
+            </column>
+            <column name="country" type="varchar(50)">
+                <constraints nullable="false" />
+            </column>
+            <column name="salesRepEmployeeNumber" type="int(11)">
+                <constraints nullable="true" />
+            </column>
+            <column name="creditLimit" type="decimal(10,2)">
+                <constraints nullable="true" />
+            </column>
+        </createTable>
+
+        <createTable tableName="employee">
+            <column name="employeeNumber" type="int(11)">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="lastName" type="varchar(50)">
+                <constraints nullable="false" />
+            </column>
+            <column name="firstName" type="varchar(50)">
+                <constraints nullable="false" />
+            </column>
+            <column name="extension" type="varchar(50)">
+                <constraints nullable="false" />
+            </column>
+            <column name="email" type="varchar(100)">
+                <constraints nullable="false" />
+            </column>
+            <column name="officeCode" type="varchar(10)">
+                <constraints nullable="false" />
+            </column>
+            <column name="reportsTo" type="varchar(11)">
+                <constraints nullable="true" />
+            </column>
+            <column name="jobTitle" type="varchar(50)">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+
+        <createTable tableName="offices">
+            <column name="officeCode" type="varchar(10)">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="city" type="varchar(50)">
+                <constraints nullable="false" />
+            </column>
+            <column name="phone" type="varchar(50)">
+                <constraints nullable="false" />
+            </column>
+            <column name="addressLine1" type="varchar(50)">
+                <constraints nullable="false" />
+            </column>
+            <column name="addressLine2" type="varchar(50)">
+                <constraints nullable="true" />
+            </column>
+            <column name="state" type="varchar(50)">
+                <constraints nullable="true" />
+            </column>
+            <column name="country" type="varchar(50)">
+                <constraints nullable="false" />
+            </column>
+            <column name="postalCode" type="varchar(15)">
+                <constraints nullable="false" />
+            </column>
+            <column name="territory" type="varchar(10)">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+
+        <createTable tableName="orderdetails">
+            <column name="orderNumber" type="int(11)">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="productCode" type="varchar(15)">
+                <constraints nullable="false" />
+            </column>
+            <column name="quantityOrdered" type="int(11)">
+                <constraints nullable="false" />
+            </column>
+            <column name="priceEach" type="decimal(10,2)">
+                <constraints nullable="false" />
+            </column>
+            <column name="orderLineNumber" type="smallint(6)">
+                <constraints nullable="true" />
+            </column>
+        </createTable>
+
+        <createTable tableName="orders">
+            <column name="orderNumber" type="int(11)">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="orderDate" type="date">
+                <constraints nullable="false" />
+            </column>
+            <column name="requiredDate" type="date">
+                <constraints nullable="false" />
+            </column>
+            <column name="shippedDate" type="date">
+                <constraints nullable="true" />
+            </column>
+            <column name="status" type="varchar(15)">
+                <constraints nullable="false" />
+            </column>
+            <column name="comments" type="text">
+                <constraints nullable="false" />
+            </column>
+            <column name="customerNumber" type="int(11)">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+
+        <createTable tableName="payments">
+            <column name="customerNumber" type="int(11)">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="checkNumber" type="varchar(50)">
+                <constraints nullable="false" />
+            </column>
+            <column name="paymentDate" type="date">
+                <constraints nullable="false" />
+            </column>
+            <column name="amount" type="decimal(10,2)">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+
+        <createTable tableName="productlines">
+            <column name="productLine" type="varchar(50)">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="textDescription" type="varchar(4000)">
+                <constraints nullable="true" />
+            </column>
+            <column name="htmlDescription" type="mediumtext">
+                <constraints nullable="true" />
+            </column>
+            <column name="image" type="mediumblob">
+                <constraints nullable="true" />
+            </column>
+        </createTable>
+
+        <createTable tableName="products">
+            <column name="productCode" type="varchar(15)">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="productName" type="varchar(70)">
+                <constraints nullable="false" />
+            </column>
+            <column name="productLine" type="varchar(50)">
+                <constraints nullable="false" />
+            </column>
+            <column name="productScale" type="varchar(10)">
+                <constraints nullable="false" />
+            </column>
+            <column name="productVendor" type="varchar(50)">
+                <constraints nullable="false" />
+            </column>
+            <column name="productDescription" type="text">
+                <constraints nullable="false" />
+            </column>
+            <column name="quantityInStock" type="smallint(6)">
+                <constraints nullable="false" />
+            </column>
+            <column name="buyPrice" type="decimal(10,2)">
+                <constraints nullable="false" />
+            </column>
+            <column name="MSRP" type="decimal(10,2)">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+
+    </changeSet>
+
+    <changeSet id="tag-1.0" author="mbanacho">
+        <tagDatabase tag="1.0" />
+    </changeSet>
+</databaseChangeLog>

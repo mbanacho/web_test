@@ -1,0 +1,61 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet id="create_constraint" author="mbanacho">
+
+        <addForeignKeyConstraint baseColumnNames="salesRepEmployeeNumber"
+                                 baseTableName="customers"
+                                 constraintName="fk_customer_employee"
+                                 referencedColumnNames="employeeNumber"
+                                 referencedTableName="employees"/>
+
+        <addForeignKeyConstraint baseTableName="employees"
+                                 baseColumnNames="reportsTo"
+                                 constraintName="fk_employee_reportsto"
+                                 referencedTableName="employees"
+                                 referencedColumnNames="employeeNumber"/>
+
+        <addForeignKeyConstraint baseTableName="employees"
+                                 baseColumnNames="officeCode"
+                                 constraintName="fk_employee_officecode"
+                                 referencedTableName="offices"
+                                 referencedColumnNames="officeCode"/>
+
+        <addForeignKeyConstraint baseTableName="orderdetails"
+                                 baseColumnNames="orderNumber"
+                                 constraintName="fk_orderdetail_order"
+                                 referencedTableName="orders"
+                                 referencedColumnNames="orderNumber"/>
+
+        <addForeignKeyConstraint baseTableName="orderdetails"
+                                 baseColumnNames="productCode"
+                                 constraintName="fk_orderdetail_product"
+                                 referencedTableName="products"
+                                 referencedColumnNames="productCode"/>
+
+        <addForeignKeyConstraint baseTableName="orders"
+                                 baseColumnNames="customerNumber"
+                                 constraintName="fk_order_customer"
+                                 referencedTableName="customers"
+                                 referencedColumnNames="customerNumber"/>
+
+        <addForeignKeyConstraint baseTableName="payments"
+                                 baseColumnNames="customerNumber"
+                                 constraintName="fk_payment_customer"
+                                 referencedTableName="customers"
+                                 referencedColumnNames="customerNumber"/>
+
+        <addForeignKeyConstraint baseTableName="products"
+                                 baseColumnNames="productLine"
+                                 constraintName="fk_product_productline"
+                                 referencedTableName="productlines"
+                                 referencedColumnNames="productLine"/>
+
+    </changeSet>
+
+    <changeSet id="tag-1.0" author="mbanacho">
+        <tagDatabase tag="1.0" />
+    </changeSet>
+</databaseChangeLog>

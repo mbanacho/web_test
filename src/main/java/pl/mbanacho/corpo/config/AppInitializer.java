@@ -11,7 +11,7 @@ public class AppInitializer extends AbstractAnnotationConfigDispatcherServletIni
 
     @Override
     protected Class<?>[] getRootConfigClasses() {
-        return new Class[] { PersistenceJPAConfig.class, SecurityConfig.class, ThymeleafConfig.class  };
+        return new Class[] { SecurityConfig.class, ThymeleafConfig.class  };
     }
 
     @Override
