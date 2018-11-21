@@ -1,50 +1,131 @@
 package pl.mbanacho.corpo.model.input.employee;
 
+import org.springframework.format.annotation.DateTimeFormat;
+import pl.mbanacho.corpo.service.validator.PeselConstraint;
+
+import javax.validation.constraints.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
+
 public class NewEmployee {
 
-    private String carBrand;
-    private String carModel;
-    private String carColor;
-    private String version;
-    private Integer productionYear;
+    @NotEmpty
+    @Email
+    private String email;
 
-    public String getCarBrand() {
-        return carBrand;
+    private String verifyEmail;
+
+    private Integer employeeNumber;
+
+    private String lastName;
+
+    private String firstName;
+
+    @Size(min=5, max=30)
+    private String extension;
+
+    private String officeCode;
+
+    @PeselConstraint
+    private String pesel;
+
+    private Integer reportsTo;
+
+    @DateTimeFormat(pattern="dd/MM/yyyy")
+    @NotNull
+    @Past
+    private LocalDate startDate;
+
+    private String jobTitle;
+
+
+
+    public Integer getEmployeeNumber() {
+        return employeeNumber;
     }
 
-    public void setCarBrand(String carBrand) {
-        this.carBrand = carBrand;
+    public void setEmployeeNumber(Integer employeeNumber) {
+        this.employeeNumber = employeeNumber;
     }
 
-    public String getCarModel() {
-        return carModel;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setCarModel(String carModel) {
-        this.carModel = carModel;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
-    public String getCarColor() {
-        return carColor;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setCarColor(String carColor) {
-        this.carColor = carColor;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public String getVersion() {
-        return version;
+    public String getExtension() {
+        return extension;
     }
 
-    public void setVersion(String version) {
-        this.version = version;
+    public void setExtension(String extension) {
+        this.extension = extension;
     }
 
-    public Integer getProductionYear() {
-        return productionYear;
+    public String getEmail() {
+        return email;
     }
 
-    public void setProductionYear(Integer productionYear) {
-        this.productionYear = productionYear;
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getOfficeCode() {
+        return officeCode;
+    }
+
+    public void setOfficeCode(String officeCode) {
+        this.officeCode = officeCode;
+    }
+
+    public Integer getReportsTo() {
+        return reportsTo;
+    }
+
+    public void setReportsTo(Integer reportsTo) {
+        this.reportsTo = reportsTo;
+    }
+
+    public String getJobTitle() {
+        return jobTitle;
+    }
+
+    public void setJobTitle(String jobTitle) {
+        this.jobTitle = jobTitle;
+    }
+
+    public String getVerifyEmail() {
+        return verifyEmail;
+    }
+
+    public void setVerifyEmail(String verifyEmail) {
+        this.verifyEmail = verifyEmail;
+    }
+
+    public String getPesel() {
+        return pesel;
+    }
+
+    public void setPesel(String pesel) {
+        this.pesel = pesel;
+    }
+
+    public LocalDate getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(LocalDate startDate) {
+        this.startDate = startDate;
     }
 }

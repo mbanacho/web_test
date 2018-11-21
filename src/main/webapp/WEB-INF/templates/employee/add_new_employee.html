@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:hello="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>M_B_ Admin 2.0</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/resources/sb-admin-2.css" rel="stylesheet">
+    <link href="/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <!-- jQuery -->
+    <script src="/vendor/jquery/jquery.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
+
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="/vendor/metisMenu/metisMenu.min.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="/resources/sb-admin-2.js"></script>
+</head>
+<body>
+<div id="wrapper">
+    <!-- Navigation -->
+    <div th:replace="fragments/menu :: menu">&nbsp;</div>
+
+    <div id="page-wrapper">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header">Dashboard</h1>
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+        <!-- /.row -->
+        <div th:replace="fragments/header :: header">&nbsp;</div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <i class="fa fa-bar-chart-o fa-fw"></i> Add New Employee
+            </div>
+
+            <div class="panel-body">
+                <form action="#" th:action="@{/employee}" th:object="${newEmployee}" method="post">
+                    <table class="row">
+                        <tr>
+                            <td class="col-lg-3"> <label th:text="#{employee.create.firstName}"></label> </td>
+                            <td class="col-lg-3"><input class="col-lg-12" type="text" id="newEmp.firstName" name="firstName" th:field="*{firstName}" /> </td>
+                        </tr>
+                        <tr>
+                            <td class="col-lg-3"> <label th:text="#{employee.create.lastName}"></label> </td>
+                            <td class="col-lg-3"> <input class="col-lg-12"  type="text" id="newEmp.lastName" name="lastName" th:field="*{lastName}" /> </td>
+                        </tr>
+                        <tr>
+                            <td class="col-lg-3"> <label th:text="#{employee.create.extension}"></label> </td>
+                            <td class="col-lg-3"> <input class="col-lg-12"  type="text" id="newEmp.extension" name="extension" th:field="*{extension}" /> </td>
+                        </tr>
+                        <tr>
+                            <td class="col-lg-3"> <label th:text="#{employee.create.pesel}"></label> </td>
+                            <td class="col-lg-3"> <input class="col-lg-12"  type="text" id="newEmp.pesel" name="pesel" th:field="*{pesel}" /> </td>
+                            <td class="col-lg-6" >
+                                <div th:if="${error_pesel}")><p th:text="${error_pesel}"></p></div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col-lg-3"> <label th:text="#{employee.create.startDate}"></label> </td>
+                            <td class="col-lg-3"> <input class="col-lg-12"  type="text" id="newEmp.startDate" name="startDate" th:field="*{startDate}" /> </td>
+                            <td class="col-lg-6" >
+                                <div th:if="${error_startDate}")><p th:text="${error_startDate}"></p></div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col-lg-3"> <label th:text="#{employee.create.email}"></label> </td>
+                            <td class="col-lg-3">
+                                <input class="col-lg-12"  type="text" id="newEmp.email" name="email" th:field="*{email}" />
+                            </td>
+                            <td class="col-lg-6" >
+                                <div th:if="${error_email}")><p th:text="${error_email}"></p></div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col-lg-3"> <label th:text="#{employee.create.officeCode}"></label> </td>
+                            <td class="col-lg-3">
+                                <select class="col-lg-12"  id="newEmp.officeCode" name="officeCode" th:field="*{officeCode}">
+                                    <option th:each="officeCode : ${officeCodes}" th:value="${officeCode.key}" th:text="${officeCode.value}"></option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col-lg-3"> <label th:text="#{employee.create.jobTitle}"></label> </td>
+                            <td class="col-lg-3">
+                                <select class="col-lg-12"  id="newEmp.jobTitle" name="jobTitle" th:field="*{jobTitle}">
+                                    <option th:each="jobTitle : ${jobTitles}" th:value="${jobTitle}" th:text="${jobTitle}"></option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col-lg-3"> <label th:text="#{employee.create.reportsTo}"></label> </td>
+                            <td class="col-lg-3">
+                                <select class="col-lg-12"  id="newEmp.reportsTo" name="reportsTo" th:field="*{reportsTo}">
+                                    <option th:each="employee : ${employeesReportTo}" th:value="${employee.key}" th:text="${employee.value}"></option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td> <input name="submit" type="submit" value="Add new employee" class="btn btn-success btn-block"></input> </td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

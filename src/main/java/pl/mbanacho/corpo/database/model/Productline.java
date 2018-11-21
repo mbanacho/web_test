@@ -11,13 +11,12 @@ public class Productline implements Serializable {
     @Column(name = "productLine", updatable = false, nullable = false)
     private String productLine;
 
-    @Column(name = "textDescription")
     private String textDescription;
 
-    @Column(name = "htmlDescription", columnDefinition = "mediumtext")
+    @Column(columnDefinition = "mediumtext", nullable = true)
     private String htmlDescription;
 
-    @Column(name = "image", columnDefinition = "mediumblob")
+    @Column(columnDefinition = "mediumblob", nullable = true)
     private String image;
 
     public String getProductLine() {

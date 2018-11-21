@@ -5,15 +5,19 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import pl.mbanacho.corpo.database.model.Employee;
 import pl.mbanacho.corpo.model.input.employee.NewEmployee;
 import pl.mbanacho.corpo.model.input.employee.UpdateEmployee;
 import pl.mbanacho.corpo.service.employee.EmployeeService;
-import pl.mbanacho.corpo.service.queue.RabbitMqProducer;
 
+import javax.validation.Valid;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Controller
@@ -22,9 +26,6 @@ public class EmployeeController {
 
     @Autowired
     EmployeeService service;
-
-    @Autowired
-    RabbitMqProducer rabbitMqProducer;
 
     @GetMapping
     public ModelAndView getEmployees(Model model){
@@ -35,8 +36,7 @@ public class EmployeeController {
             mav.setStatus(HttpStatus.OK);
             return mav;
         }catch(Exception e){
-            mav.setStatus(HttpStatus.BAD_REQUEST);
-            mav.setViewName("error");
+            mav.setStatus(HttpStatus.INTERNAL_SERVER_ERROR);
             return mav;
         }
     }
@@ -55,13 +55,50 @@ public class EmployeeController {
         }
     }
 
-    @PostMapping
-    public ResponseEntity<Long> addEmployee(@RequestBody NewEmployee newEmployee){
+    @GetMapping("/add")
+    public ModelAndView addEmployees(Model model){
+        ModelAndView mav = new ModelAndView("employee/add_new_employee");
         try{
-            Long employeeId = service.addNewEmployee(newEmployee);
-            return ResponseEntity.ok(employeeId);
+            mav.addObject("newEmployee",new NewEmployee());
+            mav.setStatus(HttpStatus.OK);
+            return mav;
         }catch(Exception e){
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+            mav.setStatus(HttpStatus.INTERNAL_SERVER_ERROR);
+            return mav;
+        }
+    }
+
+    @PostMapping
+    public ModelAndView addEmployee( @Valid NewEmployee newEmployee, BindingResult result){
+        ModelAndView mav = new ModelAndView("employee/employee");
+        if(result.hasErrors()) {
+            mav.setViewName("employee/add_new_employee");
+
+            //Podejscie I
+            String field = new String("startDate");
+            FieldError fieldError = result.getFieldError(field);
+            if(fieldError!=null){
+                mav.addObject("error_"+field,"wrong "+fieldError.getField());
+            }
+
+            //Podejscie II
+            mav.addObject("error_pesel","wrong "+result.getFieldError("pesel").getField());
+            return mav;
+
+            //...??? znalezc lepsza walidacje
+
+        }
+        try{
+            Integer employeeId = service.addNewEmployee(newEmployee);
+            mav.addObject("employeeId",employeeId);
+            List<Employee> employees = service.getAllEmployee();
+            mav.addObject("employees",employees);
+            mav.setStatus(HttpStatus.OK);
+            return mav;
+        }catch(Exception e){
+            mav.setStatus(HttpStatus.INTERNAL_SERVER_ERROR);
+            mav.addObject("error","add employee fail");
+            return mav;
         }
     }
 
@@ -73,5 +110,23 @@ public class EmployeeController {
         }catch(Exception e){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
+    }
+
+
+    @ModelAttribute("officeCodes")
+    public Map<String,String> populatePlanets() {
+        return service.getAllOfficeCodes();
+    }
+
+    @ModelAttribute("jobTitles")
+    public List<String> jobTitles() {
+        return Arrays.asList(new String[] {
+                "President","VP Sales","VP Marketing","Sales Manager (APAC)","Sale Manager (EMEA)","Sales Manager (NA)","Sales Rep"
+        });
+    }
+
+    @ModelAttribute("employeesReportTo")
+    public Map<Integer,String> employeesReportTo() {
+        return service.getAllEmployeeAvailableToBeReporter();
     }
 }

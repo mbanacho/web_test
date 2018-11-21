@@ -29,8 +29,11 @@ public class EmployeeServiceTest {
 
     @Test
     public void getAllEmployee() {
-      //  List<Employee> employees = employeeService.getAllEmployee();
-       // Assert.notEmpty(employees);
+        // given
+
+        // when
+
+        // then
     }
 
     @Test

@@ -1,5 +1,7 @@
 package pl.mbanacho.corpo.database.model;
 
+import pl.mbanacho.corpo.model.input.employee.NewEmployee;
+
 import javax.persistence.*;
 
 @Entity
@@ -7,13 +9,14 @@ import javax.persistence.*;
 public class Employee {
 
     @Id
-    @Column(name="employeeNumber", updatable = false, nullable = false)
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(updatable = false, nullable = false)
     private Integer employeeNumber;
 
-    @Column(name="lastName", columnDefinition = "varchar(50)", nullable = false)
+    @Column(columnDefinition = "varchar(50)", nullable = false)
     private String lastName;
 
-    @Column(name="firstName", columnDefinition = "varchar(50)", nullable = false)
+    @Column(columnDefinition = "varchar(50)", nullable = false)
     private String firstName;
 
     @Column(columnDefinition = "varchar(10)", nullable = false)
@@ -95,10 +98,5 @@ public class Employee {
 
     public void setJobTitle(String jobTitle) {
         this.jobTitle = jobTitle;
-    }
-
-    @Override
-    public String toString() {
-        return "Employee{" + "employeeNumber=" + employeeNumber + ", lastName='" + lastName + '\'' + ", firstName='" + firstName + '\'' + ", extension='" + extension + '\'' + ", email='" + email + '\'' + ", officeCode=" + officeCode + ", reportsTo=" + reportsTo + ", jobTitle='" + jobTitle + '\'' + '}';
     }
 }

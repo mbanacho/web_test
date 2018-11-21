@@ -1,5 +1,7 @@
 package pl.mbanacho.corpo.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
@@ -7,16 +9,23 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import pl.mbanacho.corpo.database.model.Employee;
+import pl.mbanacho.corpo.database.model.Order;
+import pl.mbanacho.corpo.service.DashboardService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.security.Principal;
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 @Controller
 public class IndexController {
+
+    @Autowired
+    DashboardService dashboardService;
 
     @GetMapping("/")
     String getIndex(Principal principal) {
@@ -52,7 +61,16 @@ public class IndexController {
 
     @GetMapping(value = "/index")
     public ModelAndView indexPage(){
-        ModelAndView mav = new ModelAndView("home/homeSignedIn");
-        return mav;
+        ModelAndView mav = new ModelAndView("index");
+        try{
+            List<Order> orders = dashboardService.getLastTwentySales();
+            mav.addObject("orders",orders);
+            mav.setStatus(HttpStatus.OK);
+            return mav;
+        }catch(Exception e){
+            mav.setStatus(HttpStatus.INTERNAL_SERVER_ERROR);
+            mav.setViewName("error");
+            return mav;
+        }
     }
 }
