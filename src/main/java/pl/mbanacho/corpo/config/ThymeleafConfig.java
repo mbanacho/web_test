@@ -71,6 +71,9 @@ public class ThymeleafConfig extends WebMvcConfigurerAdapter implements Applicat
         registry
                 .addResourceHandler("/vendor/**")
                 .addResourceLocations("/WEB-INF/vendor/");
+        registry
+                .addResourceHandler("/images/**")
+                .addResourceLocations("/WEB-INF/images/");
     }
 
     @Bean

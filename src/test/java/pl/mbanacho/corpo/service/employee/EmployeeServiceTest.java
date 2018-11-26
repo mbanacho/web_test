@@ -13,6 +13,7 @@ import pl.mbanacho.corpo.database.model.Employee;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.Assert.*;
 
@@ -38,6 +39,8 @@ public class EmployeeServiceTest {
 
     @Test
     public void getEmployeeById() {
+       System.out.print(Optional.of(new Integer(100)).flatMap(s->Optional.ofNullable(s)).isPresent());
+        System.out.print("dddddddddddddd");
     }
 
     @Test
